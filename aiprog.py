@@ -230,4 +230,5 @@ def AIprog(playerX):
 			coordinates.append(table[i][0])
 			coordinates.append(table[i][1])
 			break
+	print coordinates
 	return coordinates
