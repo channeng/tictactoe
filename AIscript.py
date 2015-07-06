@@ -143,14 +143,14 @@ def start_game():
 				print "GAME OVER!!! You win!"
 				break
 			elif endCrit():
-				print "GAME OVER!!! No one wins..."
+				print "GAME OVER!!! It's a draw!"
 				break
 			ai = aiprog.AIprog(2,board)
 			board[ai[0]][ai[1]] = 2
 			printBoard()
 			print "AI played row %s , col %s" %(ai[0],ai[1])
 			if endCrit():
-				print "GAME OVER!!! It's a draw..."
+				print "GAME OVER!!! It's a draw!"
 				break
 		else:
 			print "GAME OVER!!! AI wins"
@@ -165,11 +165,11 @@ def start_game():
 				print "GAME OVER!!! AI wins"
 				break
 			elif endCrit():
-				print "GAME OVER!!! No one wins..."
+				print "GAME OVER!!! It's a draw!"
 				break
 			Pturn(2)
 			if endCrit():
-				print "GAME OVER!!! It's a draw..."
+				print "GAME OVER!!! It's a draw!"
 				break
 		else:
 			print "GAME OVER!!! You win!"
