@@ -216,13 +216,11 @@ def AIprogrun(playerX,board):
 				board2[row][col] = playerX
 				table.append([row,col,scenario(playerX,board2)])
 			else: pass
-	print table
 
 	scores = []
 	for i in range(len(table)):
 		scores.append(table[i][2])
 	topscore = max(scores)
-	print topscore
 
 	coordinates = []
 	for i in range(len(table)):
@@ -230,7 +228,6 @@ def AIprogrun(playerX,board):
 			coordinates.append(table[i][0])
 			coordinates.append(table[i][1])
 			break
-	print coordinates
 	return coordinates
 
 def AIprog(playerX,board):

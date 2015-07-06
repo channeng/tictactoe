@@ -133,6 +133,18 @@ def winCrit():
 	return rightdiagCrit() or leftdiagCrit() or colCrit() or rowCrit()
 
 #GAME RUNS
+
+
+def replay():
+	answer = raw_input("Do you want to play again? (y/n)")
+	if answer == "y":
+		for row in board:
+			for i in range(3):
+				row[i] == 0
+		start_game()
+	else:
+		return True
+
 def start_game():
 	printBoard()
 	who_starts = raw_input("Do you want to begin first? (y/n)")
@@ -141,17 +153,20 @@ def start_game():
 			Pturn(1)
 			if winCrit():
 				print "GAME OVER!!! You win!"
-				break
+				if replay():
+					break
 			elif endCrit():
 				print "GAME OVER!!! It's a draw!"
-				break
+				if replay():
+					break
 			ai = aiprog.AIprog(2,board)
 			board[ai[0]][ai[1]] = 2
-			printBoard()
 			print "AI played row %s , col %s" %(ai[0],ai[1])
+			printBoard()
 			if endCrit():
 				print "GAME OVER!!! It's a draw!"
-				break
+				if replay():
+					break
 		else:
 			print "GAME OVER!!! AI wins"
 
@@ -159,22 +174,26 @@ def start_game():
 		while not winCrit():
 			ai = aiprog.AIprog(1,board)
 			board[ai[0]][ai[1]] = 1
-			printBoard()
 			print "AI played row %s , col %s" %(ai[0],ai[1])
+			printBoard()
 			if winCrit():
 				print "GAME OVER!!! AI wins"
-				break
+				if replay():
+					break
 			elif endCrit():
 				print "GAME OVER!!! It's a draw!"
-				break
+				if replay():
+					break
 			Pturn(2)
 			if endCrit():
 				print "GAME OVER!!! It's a draw!"
-				break
+				if replay():
+					break
 		else:
 			print "GAME OVER!!! You win!"
 
 start_game()
+
 #win = ""
 #while True:
 #	if P1turn():
