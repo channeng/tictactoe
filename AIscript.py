@@ -1,3 +1,5 @@
+import aiprog
+
 r1 = [0,0,0]
 r2 = [0,0,0]
 r3 = [0,0,0]
@@ -37,20 +39,18 @@ def Pturn(n):
 		Pturn(n)
 #		return False
 
-def P2turn():
-	print "Player 2 :"
-	p2row = int(raw_input("Which row? (1/2/3) \n >  ")) -1
-	p2col = int(raw_input("Which col? (1/2/3) \n >  ")) -1
+# def P2turn():
+# 	print "Player 2 :"
+# 	p2row = int(raw_input("Which row? (1/2/3) \n >  ")) -1
+# 	p2col = int(raw_input("Which col? (1/2/3) \n >  ")) -1
 
-	if board[p2row][p2col] == 0:
-		board[p2row][p2col] = 2
-		printBoard()
-#		return rowCrit()
-	else:
-		printBoard()
-		print "Sorry, it's taken. Try again!"
-		P2turn()
-#		return False
+# 	if board[p2row][p2col] == 0:
+# 		board[p2row][p2col] = 2
+# 		printBoard()
+# 	else:
+# 		printBoard()
+# 		print "Sorry, it's taken. Try again!"
+# 		P2turn()
 
 # GAME OVER CRITERIA
 def endCrit():
@@ -133,19 +133,21 @@ def winCrit():
 	return rightdiagCrit() or leftdiagCrit() or colCrit() or rowCrit()
 
 #GAME RUNS
-printBoard()
-
-while not winCrit():
-	Pturn(1)
-	if winCrit():
-		print "GAME OVER!!! P1 wins"
-		break
-	elif endCrit():
-		print "GAME OVER!!! No one wins..."
-	Pturn(2)
-	if endCrit():
-		print "GAME OVER!!! It's a draw..."
-else: print "GAME OVER!!! P2 wins"
+def start_game():
+	printBoard()
+	who_starts = raw_input("Do you want to begin first? (y/n)")
+	if who_starts == "y":
+		while not winCrit():
+			Pturn(1)
+			if winCrit():
+				print "GAME OVER!!! P1 wins"
+				break
+			elif endCrit():
+				print "GAME OVER!!! No one wins..."
+			AIprog(2)
+			if endCrit():
+				print "GAME OVER!!! It's a draw..."
+		else: print "GAME OVER!!! P2 wins"
 
 #win = ""
 #while True:

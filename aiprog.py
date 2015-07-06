@@ -1,9 +1,9 @@
 import copy
 
 #AI PROGRAM
-r1 = [1,1,0]
-r2 = [0,0,2]
-r3 = [0,2,2]
+r1 = [0,0,1]
+r2 = [2,2,1]
+r3 = [1,0,2]
 
 board = [r1,r2,r3]
 
@@ -41,7 +41,7 @@ def fchckrow(playerX,row):
 
 def schckrow(playerX,row):
 	if sumrow(playerX,row)>0 and searchopprow(playerX,row)>0:
-		score = fchckrow(playerX,row) + 1
+		score = fchckrow(playerX,row) + 2
 		return score
 	else:
 		return 0
@@ -97,7 +97,7 @@ def fchckcol(playerX,colindex,board2):
 
 def schckcol(playerX,colindex,board2):
 	if sumcol(playerX,colindex,board2)>0 and searchoppcol(playerX,colindex,board2)>0:
-		score = fchckcol(playerX,colindex,board2) + 1
+		score = fchckcol(playerX,colindex,board2) + 2
 		return score
 	else:
 		return 0
@@ -175,7 +175,7 @@ def fchckdiag(playerX,diagdir,board2):
 
 def schckdiag(playerX,diagdir,board2):
 	if sumdiag(playerX,diagdir,board2)>0 and searchoppdiag(playerX,diagdir,board2)>0:
-		score = fchckdiag(playerX,diagdir,board2) + 1
+		score = fchckdiag(playerX,diagdir,board2) + 2
 		return score
 	else:
 		return 0
@@ -207,13 +207,13 @@ def score(playerX,board2):
 def scenario(playerX,board2):
 	return score(playerX,board2)
 
-def AIprog(playerX):
+def AIprogrun(playerX):
 	table = []
 	for row in range(3):
 		for col in range(3):
 			if board[row][col] == 0:
 				board2 = copy.deepcopy(board)
-				board2[row][col] = 1
+				board2[row][col] = playerX
 				table.append([row,col,scenario(playerX,board2)])
 			else: pass
 	print table
@@ -232,3 +232,10 @@ def AIprog(playerX):
 			break
 	print coordinates
 	return coordinates
+
+def AIprog(playerX):
+	if playerX==2 and (board == [[1,0,0],[0,2,0],[0,0,1]] or board == [[0,0,1],[0,2,0],[1,0,0]]):
+			print [1,0]
+			return [1,0]
+	else: 
+		AIprogrun(playerX)
