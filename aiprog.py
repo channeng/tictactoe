@@ -1,11 +1,11 @@
-import copy
-
 #AI PROGRAM
 r1 = [0,0,1]
 r2 = [2,2,1]
 r3 = [1,0,2]
 
 board = [r1,r2,r3]
+
+import copy
 
 #DEFINE ROW WEIGHTAGES
 def sumrow(playerX,row):

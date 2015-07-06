@@ -144,11 +144,13 @@ def start_game():
 				break
 			elif endCrit():
 				print "GAME OVER!!! No one wins..."
-			AIprog(2)
+			ai = aiprog.AIprog(2)
+			board[int(ai[0])][int(ai[1])] = 2
 			if endCrit():
 				print "GAME OVER!!! It's a draw..."
 		else: print "GAME OVER!!! P2 wins"
 
+start_game()
 #win = ""
 #while True:
 #	if P1turn():
