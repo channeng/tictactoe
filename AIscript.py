@@ -140,15 +140,39 @@ def start_game():
 		while not winCrit():
 			Pturn(1)
 			if winCrit():
-				print "GAME OVER!!! P1 wins"
+				print "GAME OVER!!! You win!"
 				break
 			elif endCrit():
 				print "GAME OVER!!! No one wins..."
-			ai = aiprog.AIprog(2)
+				break
+			ai = aiprog.AIprog(2,board)
 			board[ai[0]][ai[1]] = 2
+			printBoard()
+			print "AI played row %s , col %s" %(ai[0],ai[1])
 			if endCrit():
 				print "GAME OVER!!! It's a draw..."
-		else: print "GAME OVER!!! P2 wins"
+				break
+		else:
+			print "GAME OVER!!! AI wins"
+
+	if who_starts == "n":
+		while not winCrit():
+			ai = aiprog.AIprog(1,board)
+			board[ai[0]][ai[1]] = 1
+			printBoard()
+			print "AI played row %s , col %s" %(ai[0],ai[1])
+			if winCrit():
+				print "GAME OVER!!! AI wins"
+				break
+			elif endCrit():
+				print "GAME OVER!!! No one wins..."
+				break
+			Pturn(2)
+			if endCrit():
+				print "GAME OVER!!! It's a draw..."
+				break
+		else:
+			print "GAME OVER!!! You win!"
 
 start_game()
 #win = ""

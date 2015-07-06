@@ -1,9 +1,9 @@
 #AI PROGRAM
-r1 = [0,0,1]
-r2 = [2,2,1]
-r3 = [1,0,2]
+# r1 = [0,0,1]
+# r2 = [2,2,1]
+# r3 = [1,0,2]
 
-board = [r1,r2,r3]
+# board = [r1,r2,r3]
 
 import copy
 
@@ -207,7 +207,7 @@ def score(playerX,board2):
 def scenario(playerX,board2):
 	return score(playerX,board2)
 
-def AIprogrun(playerX):
+def AIprogrun(playerX,board):
 	table = []
 	for row in range(3):
 		for col in range(3):
@@ -233,9 +233,9 @@ def AIprogrun(playerX):
 	print coordinates
 	return coordinates
 
-def AIprog(playerX):
+def AIprog(playerX,board):
 	if playerX==2 and (board == [[1,0,0],[0,2,0],[0,0,1]] or board == [[0,0,1],[0,2,0],[1,0,0]]):
 			print [1,0]
 			return [1,0]
 	else: 
-		AIprogrun(playerX)
+		return AIprogrun(playerX,board)
