@@ -136,7 +136,7 @@ def winCrit():
 
 
 def replay():
-	answer = raw_input("Do you want to play again? (y/n)")
+	answer = raw_input("Do you want to play again? (y/n) \n > ")
 	if answer == "y":
 		for row in board:
 			for i in range(3):
@@ -161,7 +161,7 @@ def start_game():
 					break
 			ai = aiprog.AIprog(2,board)
 			board[ai[0]][ai[1]] = 2
-			print "AI played row %s , col %s" %(ai[0],ai[1])
+			print "AI played row %s , col %s" %((ai[0]+1),(ai[1]+1))
 			printBoard()
 			if endCrit():
 				print "GAME OVER!!! It's a draw!"
@@ -174,7 +174,7 @@ def start_game():
 		while not winCrit():
 			ai = aiprog.AIprog(1,board)
 			board[ai[0]][ai[1]] = 1
-			print "AI played row %s , col %s" %(ai[0],ai[1])
+			print "AI played row %s , col %s" %((ai[0]+1),(ai[1]+1))
 			printBoard()
 			if winCrit():
 				print "GAME OVER!!! AI wins"
