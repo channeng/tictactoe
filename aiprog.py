@@ -1,9 +1,9 @@
 import copy
 
 #AI PROGRAM
-r1 = [1,0,0]
-r2 = [0,2,0]
-r3 = [0,0,0]
+r1 = [1,1,0]
+r2 = [0,0,2]
+r3 = [0,2,2]
 
 board = [r1,r2,r3]
 
@@ -32,11 +32,12 @@ def searchopprow(playerX,row):
 def fchckrow(playerX,row):
 	if searchopprow(playerX,row)>0:
 		return 0
-	else:
-		if sumrow(playerX,row) ==2:
-			return 3
-		else: 
-			return sumrow(playerX,row)
+	elif sumrow(playerX,row) ==2:
+		return 3
+	elif sumrow(playerX,row) ==3:
+		return 300
+	else: 	
+		return sumrow(playerX,row)
 
 def schckrow(playerX,row):
 	if sumrow(playerX,row)>0 and searchopprow(playerX,row)>0:
@@ -56,166 +57,177 @@ def allchckrow(playerX,row):
 	allscore = fchckrow(playerX,row) + schckrow(playerX,row) + tchckrow(playerX,row)
 	return allscore
 
-def rowscore(playerX):
+def rowscore(playerX,board2):
 	total = 0
-	for row in board:
+	for row in board2:
 		total = total + allchckrow(playerX,row)
 	return total
 
 #DEFINE COL WEIGHTAGES
-def sumcol(playerX,colindex):
+def sumcol(playerX,colindex,board2):
 	i = 0
 	for rowindex in range(3):
-		if board[rowindex][colindex] == playerX:
+		if board2[rowindex][colindex] == playerX:
 			i +=1
 	return i
 
-def searchoppcol(playerX,colindex):
+def searchoppcol(playerX,colindex,board2):
 	if playerX == 1:
 		i = 0
 		for rowindex in range(3):
-			if board[rowindex][colindex] == 2:
+			if board2[rowindex][colindex] == 2:
 				i +=1
 		return i
 	if playerX == 2:
 		i = 0
 		for rowindex in range(3):
-			if board[rowindex][colindex] == 1:
+			if board2[rowindex][colindex] == 1:
 				i +=1
 		return i
 
-def fchckcol(playerX,colindex):
-	if searchoppcol(playerX,colindex)>0:
+def fchckcol(playerX,colindex,board2):
+	if searchoppcol(playerX,colindex,board2)>0:
 		return 0
-	else:
-		if sumcol(playerX,colindex) ==2:
-			return 3
-		else: 
-			return sumcol(playerX,colindex)
+	elif sumcol(playerX,colindex,board2) ==2:
+		return 3
+	elif sumcol(playerX,colindex,board2) ==3:
+		return 300
+	else: 
+		return sumcol(playerX,colindex,board2)
 
-def schckcol(playerX,colindex):
-	if sumcol(playerX,colindex)>0 and searchoppcol(playerX,colindex)>0:
-		score = fchckcol(playerX,colindex) + 1
+def schckcol(playerX,colindex,board2):
+	if sumcol(playerX,colindex,board2)>0 and searchoppcol(playerX,colindex,board2)>0:
+		score = fchckcol(playerX,colindex,board2) + 1
 		return score
 	else:
 		return 0
 
-def tchckcol(playerX,colindex):
-	if sumcol(playerX,colindex)>0 and searchoppcol(playerX,colindex)>1:
-		score = fchckcol(playerX,colindex) + 10
+def tchckcol(playerX,colindex,board2):
+	if sumcol(playerX,colindex,board2)>0 and searchoppcol(playerX,colindex,board2)>1:
+		score = fchckcol(playerX,colindex,board2) + 10
 		return score
 	else:
 		return 0
 
-def allchckcol(playerX,colindex):
-	allscore = fchckcol(playerX,colindex) + schckcol(playerX,colindex) + tchckcol(playerX,colindex)
+def allchckcol(playerX,colindex,board2):
+	allscore = fchckcol(playerX,colindex,board2) + schckcol(playerX,colindex,board2) + tchckcol(playerX,colindex,board2)
 	return allscore
 
-def colscore(playerX):
+def colscore(playerX,board2):
 	total = 0
 	for colindex in range(3):
-		total = total + allchckcol(playerX,colindex)
+		total = total + allchckcol(playerX,colindex,board2)
 	return total
 
 
 #DEFINE DIAG WEIGHTAGES
-def sumdiag(playerX,diagdir):
+def sumdiag(playerX,diagdir,board2):
 	if diagdir == 0:
 		score = 0
 		for i in range(3):
-			if board[i][i] == playerX:
+			if board2[i][i] == playerX:
 				score +=1
 		return score
 	elif diagdir == 1:
 		score = 0
 		for i in range(3):
-			if board[i][2-i] == playerX:
+			if board2[i][2-i] == playerX:
 				score +=1
 		return score
 
-def searchoppdiag(playerX,diagdir):
+def searchoppdiag(playerX,diagdir,board2):
 	if diagdir == 0:
 		if playerX == 1:
 			score = 0
 			for i in range(3):
-				if board[i][i] == 2:
+				if board2[i][i] == 2:
 					score +=1
 			return score
 		if playerX == 2:
 			score = 0
 			for i in range(3):
-				if board[i][i] == 1:
+				if board2[i][i] == 1:
 					score +=1
 			return score
 	elif diagdir == 1:
 		if playerX == 1:
 			score = 0
 			for i in range(3):
-				if board[i][2-i] == 2:
+				if board2[i][2-i] == 2:
 					score +=1
 			return score
 		if playerX == 2:
 			score = 0
 			for i in range(3):
-				if board[i][2-i] == 1:
+				if board2[i][2-i] == 1:
 					score +=1
 			return score
 
-def fchckdiag(playerX,diagdir):
-	if searchoppdiag(playerX,diagdir)>0:
+def fchckdiag(playerX,diagdir,board2):
+	if searchoppdiag(playerX,diagdir,board2)>0:
 		return 0
-	else:
-		if sumdiag(playerX,diagdir) ==2:
-			return 3
-		else: 
-			return sumdiag(playerX,diagdir)
+	elif sumdiag(playerX,diagdir,board2) ==2:
+		return 3
+	elif sumdiag(playerX,diagdir,board2) ==3:
+		return 300
+	else: 
+		return sumdiag(playerX,diagdir,board2)
 
-def schckdiag(playerX,diagdir):
-	if sumdiag(playerX,diagdir)>0 and searchoppdiag(playerX,diagdir)>0:
-		score = fchckdiag(playerX,diagdir) + 1
+def schckdiag(playerX,diagdir,board2):
+	if sumdiag(playerX,diagdir,board2)>0 and searchoppdiag(playerX,diagdir,board2)>0:
+		score = fchckdiag(playerX,diagdir,board2) + 1
 		return score
 	else:
 		return 0
 
-def tchckdiag(playerX,diagdir):
-	if sumdiag(playerX,diagdir)>0 and searchoppdiag(playerX,diagdir)>1:
-		score = fchckdiag(playerX,diagdir) + 10
+def tchckdiag(playerX,diagdir,board2):
+	if sumdiag(playerX,diagdir,board2)>0 and searchoppdiag(playerX,diagdir,board2)>1:
+		score = fchckdiag(playerX,diagdir,board2) + 10
 		return score
 	else:
 		return 0
 
-def allchckdiag(playerX,diagdir):
-	allscore = fchckdiag(playerX,diagdir) + schckdiag(playerX,diagdir) + tchckdiag(playerX,diagdir)
+def allchckdiag(playerX,diagdir,board2):
+	allscore = fchckdiag(playerX,diagdir,board2) + schckdiag(playerX,diagdir,board2) + tchckdiag(playerX,diagdir,board2)
 	return allscore
 
-def diagscore(playerX):
+def diagscore(playerX,board2):
 	total = 0
 	for diagdir in range(2):
-		total = total + allchckdiag(playerX,diagdir)
+		total = total + allchckdiag(playerX,diagdir,board2)
 	return total
 
 #DEFINE TOTAL SCORE
-def score(playerX):
-	totscore = rowscore(playerX)+colscore(playerX)+diagscore(playerX)
+def score(playerX,board2):
+	totscore = rowscore(playerX,board2)+colscore(playerX,board2)+diagscore(playerX,board2)
 	return totscore
 
 #RUN THROUGH ALL SCENARIOS
 
-def scenario(playerX,row,col):
-	board2 = copy.deepcopy(board)
-	board2[row][col] = playerX
-	
+def scenario(playerX,board2):
+	return score(playerX,board2)
 
 def AIprog(playerX):
 	table = []
 	for row in range(3):
 		for col in range(3):
 			if board[row][col] == 0:
-				print "RUN SCENARIO, SAVE SCORE, SAVE ROW/COL position"
+				board2 = copy.deepcopy(board)
+				board2[row][col] = 1
+				table.append([row,col,scenario(playerX,board2)])
 			else: pass
-	return "BEST POSITION TO TAKE"
+	print table
 
-board2 = copy.deepcopy(board)
-board2[1][0] = 1
-print board
-print board2
+	scores = []
+	for i in range(len(table)):
+		scores.append(table[i][2])
+	topscore = max(scores)
+	print topscore
+
+	coordinates = []
+	for i in range(len(table)):
+		if table[i][2]==topscore:
+			coordinates.append(table[i][0])
+			coordinates.append(table[i][1])
+			break
+	return coordinates
